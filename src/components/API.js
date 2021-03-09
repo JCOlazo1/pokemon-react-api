@@ -3,6 +3,8 @@ import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 import {produce} from 'immer'
 
+import '../App.css';
+
 const API = () => {
     const [pokemon, setPokemon] = useState(""); // changes the Pokemon's name
     const [pokeData, setPokeData] = useState([]); // holds JSON of Pokemon data
@@ -84,7 +86,6 @@ const API = () => {
                 onChange={choosePokemon}
                 value={pokemon}
             />
-{/* USE party.length to count for party size */}
             <button onClick={submitNameNo}>View</button>
             { isClicked && <button onClick={addToParty}>Add to Party</button> }
             <hr />
@@ -101,15 +102,23 @@ const API = () => {
             <br />
             <hr />
 
-            {<DisplayTeam 
+            {
+              <DisplayTeam 
                 className="party-card"
                 party={party.map((item) => (
+                  <>
                     <p key={item.id}>
                         {capitalize(item.name)}
                         {lockSprite(item.name)}
                     </p>
+                    <button onClick={() => {
+                      setParty(currentPokemon => currentPokemon.filter(x => x.id !== item.id ))
+                    }}>x</button>
+                  </>
                 ))}
-            />}
+            />
+            }
+            <br />
             {!isEmpty(party) && <button onClick={ClearAll}>Clear Party</button>}
         </div>
     )
