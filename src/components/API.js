@@ -28,10 +28,6 @@ const API = () => {
        
     }
 
-    const notAPokemon = () => {
-
-    }
-
     const choosePokemon = (event) => {
         setPokemon(event.target.value.toLowerCase())
     }
@@ -64,11 +60,15 @@ const API = () => {
     }
 
     const addToParty = () => {
-        const team = party.concat({ name: pokeData.name, id: uuidv4() })
-        console.log(team);
-        setParty(team);
-        setPokemon("");
-        setIsClicked(false);
+        if (party.length >= 6) {
+            alert("Your party is full!");
+        } else {
+            const team = party.concat({ name: pokeData.name, id: uuidv4() })
+            console.log(team);
+            setParty(team);
+            setPokemon("");
+            setIsClicked(false);
+        }
     }
 
     const ClearAll = () => {
@@ -128,7 +128,7 @@ const ShowData = ({name, types, sprite}) => {
 const DisplayTeam = ({party, sprite}) => {
     return (
         <>
-        Party: {party}
+        Your Party: {party}
         {sprite}
         </>
     )
